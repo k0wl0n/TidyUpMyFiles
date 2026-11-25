@@ -1,0 +1,21 @@
+.build/
+.swiftpm/
+build/
+shots/
+*.xcodeproj/
+.DS_Store
+docs/deck/*.pdf
+
+# Generated or local-only material (kept on disk, not published)
+docs/deck/
+docs/landing/
+docs/screenshots/
+website/
+# Local helper scripts (demo data, screenshots, guide images); only the app build script is published
+scripts/*
+!scripts/build-app.sh
+# Release scripts, used by .github/workflows/release.yml
+!scripts/make-dmg.sh
+!scripts/next-version.sh
+!scripts/release-notes.sh
+!scripts/render-homebrew.sh

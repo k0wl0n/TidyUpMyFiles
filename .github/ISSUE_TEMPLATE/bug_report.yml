@@ -1,0 +1,51 @@
+name: Bug report
+description: Something doesn't work the way it should
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting! If a file was lost or touched somewhere it shouldn't be, please use a private
+        security report instead (see SECURITY.md).
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, and what happened instead?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Add the "PDF files" rule to ~/Downloads
+        2. Switch it to Live
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: rules
+    attributes:
+      label: Rule (optional)
+      description: The rule involved, from Settings → Export Rules… (remove anything private).
+      render: yaml
+  - type: textarea
+    id: activity
+    attributes:
+      label: Activity log lines (optional)
+      description: Matching lines from Activity or ~/Library/Logs/TidyUpMyFiles.
+      render: text
+  - type: input
+    id: macos
+    attributes:
+      label: macOS version
+      placeholder: macOS 15.1
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: TidyUpMyFiles version or commit
+    validations:
+      required: true

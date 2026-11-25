@@ -1,156 +1,482 @@
 <div align="center">
-  <img src=".github/assets/icon.png" width="128" alt="TidyUpMyFiles, a file organizer app for Mac">
+  <img src=".github/assets/icon.png" width="112" alt="TidyUpMyFiles">
+
   <h1>TidyUpMyFiles</h1>
-  <p><b>Free, open-source file organizer for macOS. Automatically sorts your Downloads, Desktop and Documents with rules, from the menu bar.</b></p>
-  <p>Preview every move · Undo anything · Works offline · No account, no telemetry</p>
+
+  <p><strong>A free, open-source file organizer for macOS.</strong></p>
+
+  <p>Organize your files automatically. Preview changes. Undo with confidence.</p>
 
   <img src="https://img.shields.io/badge/macOS-13%2B-blue?style=flat-square" alt="macOS 13+">
   <img src="https://img.shields.io/badge/Swift-5.9%2B-orange?style=flat-square" alt="Swift 5.9+">
-  <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" alt="MIT license">
+  <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" alt="MIT License">
 
-  <p><a href="#install">Install</a> · <a href="docs/USER-GUIDE.md">User guide</a> · <a href="#build-from-source">Build from source</a></p>
+  <p>
+    <a href="../../releases/latest">Download</a> ·
+    <a href="#installation">Installation</a> ·
+    <a href="#features">Features</a> ·
+    <a href="#documentation">Documentation</a>
+  </p>
 
-  <img src=".github/assets/01-overview.jpg" width="820" alt="TidyUpMyFiles overview: scan the Downloads folder and tidy files automatically on macOS">
+  <img src=".github/assets/01-overview.jpg" width="820" alt="TidyUpMyFiles application overview">
 </div>
 
-TidyUpMyFiles is a **macOS menu bar app that organizes files automatically**. It watches your Downloads,
-Desktop and Documents folders and sorts new files with simple rules: "screenshots go to
-Pictures/Screenshots/2026-11", "installers older than a week go to the Trash", "PDFs go to Documents/PDF". You see every move before
-it happens, nothing is ever deleted for good, and any step can be undone. Every feature is included: no
-trial, no account, no telemetry. It works fully offline; AI suggestions are optional and off by default.
+## About
 
-<table>
-  <tr>
-    <td><img src=".github/assets/03-rule-editor.jpg" alt="Visual rule editor for sorting files by name, type, date and size on Mac"></td>
-    <td><img src=".github/assets/04-preview-detail.jpg" alt="Preview showing where each file will be moved before anything runs"></td>
-  </tr>
-  <tr>
-    <td align="center">Build rules visually, no code</td>
-    <td align="center">See every move before anything runs</td>
-  </tr>
-  <tr>
-    <td><img src=".github/assets/06-activity-runs.jpg" alt="Activity log with one-click undo for every file move"></td>
-    <td><img src=".github/assets/11-menu-bar.jpg" width="260" alt="TidyUpMyFiles menu bar app on macOS"></td>
-  </tr>
-  <tr>
-    <td align="center">Every step logged, one-click Undo</td>
-    <td align="center">Lives in the menu bar</td>
-  </tr>
-</table>
+TidyUpMyFiles is a native macOS menu bar app that automatically organizes your
+Downloads, Desktop, Documents, and other selected folders using customizable rules.
 
-## Install
+Move screenshots into dated folders, organize PDFs, clean up old installers,
+and keep your files where they belong — without doing it manually.
 
-1. Download **TidyUpMyFiles-x.y.z.dmg** from the [latest release](../../releases/latest), open it and drag
-   the app to **Applications**. It lives in the menu bar and the Dock.
-2. The app isn't notarized by Apple yet, so the first time you open it macOS says it "could not verify" it.
-   Click **Done**, then go to **System Settings → Privacy & Security** and click **Open Anyway**. Or run
-   `xattr -dr com.apple.quarantine /Applications/TidyUpMyFiles.app`.
-3. Allow access to Desktop, Documents and Downloads when macOS asks. Full Disk Access is only needed for
-   Smart Trash.
+Free and open source. No subscription, no account, and no telemetry.
+Works offline by default.
 
-With Homebrew: `brew install --cask k0wl0n/tap/tidyupmyfiles` for the app, or `brew install k0wl0n/tap/tidyup`
-for just the [command line](docs/CLI.md) tool (it's also inside the app).
+## Installation
 
-To check a download, compare it with the release's `checksums.txt` (`shasum -a 256 -c checksums.txt`) and
-confirm it was built by this repository's release workflow:
-`gh attestation verify TidyUpMyFiles-x.y.z.dmg --repo k0wl0n/TidyUpMyFiles`.
-Prefer to build it yourself? See [Build from source](#build-from-source).
+### Homebrew
 
-## Features
+Install the macOS application:
 
-- **Rules per folder** with nested **AND / OR / NOT** conditions: name, extension, kind, size, dates,
-  photo date, Finder tags and colors, download source, text inside the file, duplicates.
-- **Actions in order**: move, copy, rename with tokens like `{added.year}`, tag, color, zip, unzip,
-  alias, Shortcuts, Trash, open, and opt-in shell scripts.
-- **Ready-made rules** for screenshots, PDFs, documents, spreadsheets, videos, music, installers,
-  duplicates and more — add each to any folder you like.
-- **Preview first**: new rules only list what they would do until you switch them to **Live**.
-- **See every move**: Preview shows each file's from → to with the exact new name, name clashes and new folders.
-- **Safe name clashes**: add a number, rename the existing file, skip, or replace only when you allow it.
-- **Real-time watching** that waits until downloads have finished.
-- **Never deletes**: removed files go to the Trash, and every step can be undone, one file or a whole run.
-- **Hands off the system**: system folders, `~/Library`, `.git` folders and apps are never touched.
-- **Activity log** grouped by run, readable monthly log files and CSV export.
-- **Notifications with Undo** after background tidying (optional).
-- **Smart Trash** empties items that sat in the Trash too long, after showing you what would go.
-- **Optional AI suggestions**: a local model or your own key; only names are shared by default and
-  every suggestion waits for your approval.
-- **YAML import/export** of your rules ([reference](docs/RULES.md)) and a **`tidyup` command** ([CLI](docs/CLI.md)).
-- **Works with AI agents** over MCP: Claude Code, Claude Desktop, Cursor or Codex can simulate, tidy and
-  undo with the same safety rules ([setup](docs/MCP.md)).
+```sh
+brew install --cask k0wl0n/tap/tidyupmyfiles
+```
+
+Or install only the command-line tool:
+
+```sh
+brew install k0wl0n/tap/tidyup
+```
+
+### Direct download
+
+1. Download `TidyUpMyFiles-x.y.z.dmg` from the
+   [latest release](../../releases/latest).
+2. Open the DMG and drag TidyUpMyFiles into **Applications**.
+3. Open the application and grant access to the folders you want to organize.
+
+TidyUpMyFiles is available for Apple Silicon and Intel Macs running
+macOS 13 Ventura or later.
+
+> [!NOTE]
+> The application is not yet notarized by Apple. On the first launch,
+> macOS may prevent it from opening.
+>
+> After verifying the download, go to **System Settings → Privacy & Security**
+> and select **Open Anyway**.
+
+<details>
+<summary>Alternative installation command</summary>
+
+After verifying the downloaded application, you can remove its
+quarantine attribute:
+
+```sh
+xattr -dr com.apple.quarantine /Applications/TidyUpMyFiles.app
+```
+
+Full Disk Access is only required for the Smart Trash feature.
+
+</details>
+
+<details>
+<summary>Verify your download</summary>
+
+Compare the downloaded file against the release checksums:
+
+```sh
+shasum -a 256 -c checksums.txt
+```
+
+Verify that the DMG was built by this repository's release workflow:
+
+```sh
+gh attestation verify TidyUpMyFiles-x.y.z.dmg \
+  --repo k0wl0n/TidyUpMyFiles
+```
+
+You can also [build the application from source](#build-from-source).
+
+</details>
+
+## Why TidyUpMyFiles?
+
+| | |
+| :--- | :--- |
+| **Automatic organization** | Keep your folders organized with rules that run automatically. |
+| **Visual rule editor** | Create powerful rules without writing code. |
+| **Preview before running** | See exactly what will happen before applying new rules. |
+| **Undo and activity history** | Track changes and undo supported file operations. |
+| **Privacy first** | No account, no telemetry, and offline by default. |
+| **Free and open source** | Every feature is included under the MIT license. |
 
 ## How it works
 
-1. **Scan** — the big button on the Overview looks through your folders. Nothing moves.
-2. **Preview** — **See results** shows where every file would go. Tick what you want.
-3. **Tidy** — **Run Selected** or **Run All**. Rules you switch to **Live** then keep tidying new files by themselves.
-4. **Undo** — every run is in Activity; **Undo** puts everything back.
+| Step | Description |
+| :--- | :--- |
+| **01 — Scan** | Scan your selected folders without changing any files. |
+| **02 — Preview** | Review proposed changes and select which files to organize. |
+| **03 — Tidy** | Apply selected changes or enable Live mode for automatic organization. |
+| **04 — Undo** | Review your activity history and undo supported operations when needed. |
+
+### Example rules
+
+| When | Action |
+| :--- | :--- |
+| A new screenshot is detected | Move to `Pictures/Screenshots/2026-11` |
+| A PDF is downloaded | Move to `Documents/PDF` |
+| An installer is older than 7 days | Move to Trash |
+| A video is downloaded | Move to `Movies/Downloads` |
+| A duplicate file is detected | Move to Trash |
+| A ZIP archive is downloaded | Extract into a selected folder |
+
+Use the included rule templates or create your own.
+
+## Features
+
+### File organization
+
+- Monitor Downloads, Desktop, Documents, and custom folders.
+- Create folder-specific rules with nested AND, OR, and NOT conditions.
+- Match files by name, extension, type, size, date, Finder tags, download
+  source, file contents, and duplicates.
+- Combine multiple actions: move, copy, rename, tag, compress, extract,
+  create aliases, open files, and move to Trash.
+- Rename files dynamically using tokens such as `{added.year}`.
+- Use ready-made templates for common file types.
+- Automatically organize new files after downloads have finished.
+
+### Safety and control
+
+- New rules start in Preview mode.
+- Review source and destination paths before applying changes.
+- Handle filename conflicts by renaming, skipping, or explicitly allowing
+  replacement.
+- Undo supported operations individually or by an entire run.
+- Protect system folders, `~/Library`, `.git` directories, and applications.
+- Review activity history with monthly logs and CSV export.
+- Receive optional notifications after background operations.
+- Use Smart Trash to review and permanently remove old Trash items.
+
+### Privacy
+
+- Works offline without an account.
+- No analytics or telemetry.
+- AI suggestions are optional and disabled by default.
+- Use a local AI model with Ollama or configure your own API key.
+- External AI services may receive filenames when enabled.
+- AI-generated suggestions require approval before being applied.
+
+### Developer and AI integration
+
+- Import and export rules using YAML.
+- Manage files from the terminal using the `tidyup` command.
+- Run simulations before applying changes.
+- Connect AI agents through the Model Context Protocol (MCP).
+- Integrate with Claude Code, Claude Desktop, Cursor, and Codex.
+- Run macOS Shortcuts and opt-in shell scripts as rule actions.
+
+## Screenshots
+
+### Rule editor and preview
+
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <img src=".github/assets/03-rule-editor.jpg" width="400" alt="Visual rule editor">
+    </td>
+    <td width="50%" align="center">
+      <img src=".github/assets/04-preview-detail.jpg" width="400" alt="File operation preview">
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <strong>Visual Rule Editor</strong><br>
+      Create custom rules without code.
+    </td>
+    <td align="center">
+      <strong>Preview Changes</strong><br>
+      See exactly where your files will go.
+    </td>
+  </tr>
+</table>
+
+### Activity and undo
+
+<div align="center">
+  <img src=".github/assets/06-activity-runs.jpg" width="720" alt="Activity history and undo">
+  <p>Review previous runs, track file changes, and undo supported operations.</p>
+</div>
+
+### Menu bar
+
+<div align="center">
+  <img src=".github/assets/11-menu-bar.jpg" width="260" alt="TidyUpMyFiles menu bar">
+  <p>Scan folders and manage automation directly from the macOS menu bar.</p>
+</div>
+
+## Command-line interface
+
+TidyUpMyFiles includes a command-line tool for terminal workflows and automation.
+
+| Command | Description |
+| :--- | :--- |
+| `tidyup sim` | Preview file operations without applying changes. |
+| `tidyup run` | Run configured rules. |
+| `tidyup undo` | Undo supported operations. |
+| `tidyup log` | View activity history. |
+| `tidyup templates` | Browse available rule templates. |
+| `tidyup mcp` | Start the MCP server for AI agents. |
+
+See the [CLI documentation](docs/CLI.md) for usage and available options.
+
+## AI agent integration
+
+TidyUpMyFiles supports the Model Context Protocol (MCP), allowing AI agents
+to interact with the application using its existing rules and safety controls.
+
+Supported clients include:
+
+- Claude Code
+- Claude Desktop
+- Cursor
+- Codex
+
+Agents can simulate file operations, apply rules, review activity,
+and undo supported changes.
+
+See the [MCP setup guide](docs/MCP.md) to get started.
+
+## Documentation
+
+| Document | Description |
+| :--- | :--- |
+| [User Guide](docs/USER-GUIDE.md) | Learn how to use the application, create rules, and enable automation. |
+| [Rules Reference](docs/RULES.md) | Available conditions, actions, YAML configuration, and naming tokens. |
+| [Command Line](docs/CLI.md) | CLI commands and usage examples. |
+| [MCP Integration](docs/MCP.md) | Connect TidyUpMyFiles to AI agents. |
+| [Architecture](docs/ARCHITECTURE.md) | Application architecture, safety model, storage, and permissions. |
+| [Changelog](CHANGELOG.md) | Release history, improvements, and fixes. |
 
 ## Build from source
 
-Requirements: macOS 13 or later to run; Xcode 16 or later (Swift 5.9+) to build.
+### Requirements
+
+- macOS 13 Ventura or later
+- Xcode 16 or later
+- Swift 5.9 or later
+
+Clone the repository:
 
 ```sh
-swift build                 # debug build
-swift test                  # tests (temporary folders only)
-./scripts/build-app.sh      # universal TidyUpMyFiles.app and tidyup in ./build
+git clone https://github.com/k0wl0n/TidyUpMyFiles.git
+cd TidyUpMyFiles
 ```
 
-Dependencies are pinned exactly in `Package.resolved` (Yams 6.2.2); CI builds with
-`--only-use-versions-from-resolved-file`, and Dependabot waits 7 days before proposing updates.
-
-Make the release files (DMG, command line archive and `checksums.txt`) the same way the release workflow does:
+Build and run tests:
 
 ```sh
-VERSION=1.2.0 ./scripts/build-app.sh && VERSION=1.2.0 ./scripts/make-dmg.sh
+swift build
+swift test
 ```
 
-With an Apple Developer ID, set `SIGN_IDENTITY="Developer ID Application: Your Name (TEAMID)"` for both scripts
-and `NOTARY_PROFILE=notary` for `make-dmg.sh` to sign, notarize and staple the DMG (create the profile once with
-`xcrun notarytool store-credentials notary`).
+Build the universal macOS application:
 
-## User guide
+```sh
+./scripts/build-app.sh
+```
 
-- [User guide](docs/USER-GUIDE.md) — every screen with a picture and how to use it, including switching rules to Live.
-- [Rules reference](docs/RULES.md) — the `rules.yaml` format, every condition, action and name token.
-- [Command line](docs/CLI.md) — `tidyup sim`, `run`, `undo`, `log`, `templates`.
-- [AI agents (MCP)](docs/MCP.md) — connect Claude Code, Claude Desktop, Cursor or Codex.
-- [Architecture](docs/ARCHITECTURE.md) — how it works inside, the safety model, where things are stored and permissions.
+The application and CLI binary are available in `./build`.
+
+<details>
+<summary>Dependencies and reproducible builds</summary>
+
+Dependencies are pinned in `Package.resolved`, including Yams 6.2.2.
+
+CI uses:
+
+```sh
+--only-use-versions-from-resolved-file
+```
+
+Dependabot waits seven days before proposing dependency updates.
+
+</details>
+
+<details>
+<summary>Create release artifacts</summary>
+
+Build the application, DMG, command-line archive, and checksums:
+
+```sh
+VERSION=1.2.0 ./scripts/build-app.sh
+VERSION=1.2.0 ./scripts/make-dmg.sh
+```
+
+Replace `1.2.0` with the intended release version.
+
+</details>
+
+<details>
+<summary>Code signing and notarization</summary>
+
+An Apple Developer ID is required to sign and notarize the application.
+
+Configure your signing identity:
+
+```sh
+export SIGN_IDENTITY="Developer ID Application: Your Name (TEAMID)"
+```
+
+Create a notarization credential profile:
+
+```sh
+xcrun notarytool store-credentials notary
+```
+
+Configure the notarization profile:
+
+```sh
+export NOTARY_PROFILE=notary
+```
+
+Run the release build:
+
+```sh
+VERSION=1.2.0 ./scripts/build-app.sh
+VERSION=1.2.0 ./scripts/make-dmg.sh
+```
+
+The scripts handle signing, notarization, and stapling when the required
+credentials are configured.
+
+</details>
 
 ## FAQ
 
-**How do I automatically organize my Downloads folder on a Mac?**
-Install TidyUpMyFiles, press **Scan** on the Overview screen, check the Preview and press **Tidy**. The
-ready-made rules sort images, PDFs, documents, spreadsheets, videos, music, archives and installers into
-their own folders, and new downloads are sorted as they arrive.
+<details>
+<summary><strong>Is TidyUpMyFiles free?</strong></summary>
 
-**Is it a free alternative to Hazel?**
-It works in a similar way (folder rules with conditions and actions) and is free and open source under the
-MIT license, with a visual rule editor, a preview of every move and undo for every step.
+Yes. TidyUpMyFiles is completely free and open source under the MIT license.
+There are no subscriptions, trials, accounts, or locked features.
 
-**Can it delete my files?**
-No. Files only ever go to the Trash, never deleted permanently, and every move, rename or trash can be
-undone from the Activity log. New rules start in preview mode, and system folders, `~/Library`, `.git`
-folders and apps are never touched.
+</details>
 
-**Does it need the internet or send my data anywhere?**
-No. It works fully offline with no account and no telemetry. AI rule suggestions are optional, off by
-default, and can run locally with Ollama.
+<details>
+<summary><strong>Is it an alternative to Hazel?</strong></summary>
 
-**Can I use it from the command line or an AI agent?**
-Yes. The `tidyup` command runs the same rules ([CLI guide](docs/CLI.md)), and `tidyup mcp` lets AI agents
-such as Claude preview, tidy and undo ([MCP guide](docs/MCP.md)).
+Yes. TidyUpMyFiles provides rule-based file organization with a visual rule
+editor, automatic folder monitoring, previews, and activity history.
 
-**Which macOS versions are supported?**
-macOS 13 Ventura or later, on Apple Silicon and Intel Macs.
+It is designed as a free, open-source alternative for macOS users.
+
+</details>
+
+<details>
+<summary><strong>How do I automatically organize my Downloads folder?</strong></summary>
+
+Open TidyUpMyFiles, select your Downloads folder, and add the included
+rule templates.
+
+Scan the folder, review the proposed changes, and apply them.
+Switch approved rules to Live mode to organize new downloads automatically.
+
+</details>
+
+<details>
+<summary><strong>Can TidyUpMyFiles delete my files?</strong></summary>
+
+Standard cleanup rules move files to Trash instead of permanently deleting them.
+
+Smart Trash can permanently remove items after review. Explicit replacement
+actions and custom shell scripts may also have irreversible effects.
+
+Always review rules before enabling automatic execution.
+
+</details>
+
+<details>
+<summary><strong>Can I undo file operations?</strong></summary>
+
+Supported file operations can be undone from the Activity screen,
+either individually or by an entire run.
+
+Permanent deletion and some external actions cannot be undone.
+
+</details>
+
+<details>
+<summary><strong>Does it require an internet connection?</strong></summary>
+
+No. Core file organization features work offline.
+
+An internet connection may be required if you enable an external AI service.
+Local AI suggestions can run through Ollama.
+
+</details>
+
+<details>
+<summary><strong>Can I use it with AI agents?</strong></summary>
+
+Yes. TidyUpMyFiles provides an MCP server that allows supported AI agents
+to simulate, organize, and undo file operations.
+
+See the [MCP documentation](docs/MCP.md).
+
+</details>
+
+<details>
+<summary><strong>Which macOS versions are supported?</strong></summary>
+
+macOS 13 Ventura or later, on both Apple Silicon and Intel Macs.
+
+</details>
+
+<details>
+<summary><strong>Why does macOS prevent the application from opening?</strong></summary>
+
+The application is not yet notarized by Apple.
+
+After verifying the download, open **System Settings → Privacy & Security**
+and select **Open Anyway**.
+
+Alternatively, you can build the application from source.
+
+</details>
 
 ## Contributing
 
-Issues and pull requests are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md). Coding agents start from
-[AGENTS.md](AGENTS.md) (Claude Code reads [CLAUDE.md](CLAUDE.md)), with project skills in
-[.claude/skills](.claude/skills/README.md). Please report safety
-problems privately as described in [SECURITY.md](SECURITY.md). Changes are listed in [CHANGELOG.md](CHANGELOG.md).
+Contributions, bug reports, and feature requests are welcome.
+
+- Read the [Contributing Guide](CONTRIBUTING.md).
+- Check existing [issues](../../issues) before opening a new one.
+- Submit improvements through pull requests.
+- Report security and safety issues privately through [SECURITY.md](SECURITY.md).
+
+For contributors using AI coding agents:
+
+- [AGENTS.md](AGENTS.md) — project instructions for coding agents.
+- [CLAUDE.md](CLAUDE.md) — Claude Code instructions.
+- [Project Skills](.claude/skills/README.md) — reusable development workflows.
 
 ## License
 
-MIT, see [LICENSE](LICENSE). Third-party licenses: [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+TidyUpMyFiles is released under the [MIT License](LICENSE).
+
+See [Third-Party Notices](THIRD_PARTY_NOTICES.md) for dependency licenses.
+
+---
+
+<div align="center">
+  <img src=".github/assets/icon.png" width="48" alt="TidyUpMyFiles">
+
+  <p><strong>Less clutter. More control.</strong></p>
+
+  <p>
+    <a href="../../releases/latest">Download</a> ·
+    <a href="docs/USER-GUIDE.md">Documentation</a> ·
+    <a href="../../issues">Report an Issue</a>
+  </p>
+
+  <p>Free and open source, built for macOS.</p>
+</div>

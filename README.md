@@ -18,9 +18,9 @@
     <a href="#documentation">Documentation</a>
   </p>
 
-  <a href="https://github.com/k0wl0n/TidyUpMyFiles/releases/download/v0.1.0/TidyUpMyFiles-promo.mp4">
-    <img src=".github/assets/promo-video-poster.jpg" width="820" alt="Watch the 37-second TidyUpMyFiles video tour: a free, open-source file organizer for macOS">
-  </a>
+  <img src=".github/assets/tour.gif" width="820" alt="TidyUpMyFiles tour: scan a messy Downloads folder, preview every move, tidy and undo on macOS">
+
+  <p><sub>Silent preview · <a href="https://github.com/k0wl0n/TidyUpMyFiles/releases/download/v0.1.0/TidyUpMyFiles-promo.mp4">Download the 37-second video with sound (MP4)</a></sub></p>
 </div>
 
 ## About

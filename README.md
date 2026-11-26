@@ -18,7 +18,9 @@
     <a href="#documentation">Documentation</a>
   </p>
 
-  <img src=".github/assets/01-overview.jpg" width="820" alt="TidyUpMyFiles application overview">
+  <a href="https://github.com/k0wl0n/TidyUpMyFiles/releases/download/v0.1.0/TidyUpMyFiles-promo.mp4">
+    <img src=".github/assets/promo-video-poster.jpg" width="820" alt="Watch the 37-second TidyUpMyFiles video tour: a free, open-source file organizer for macOS">
+  </a>
 </div>
 
 ## About

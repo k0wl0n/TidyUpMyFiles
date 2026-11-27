@@ -20,7 +20,7 @@ struct MenuContent: View {
                 Button { model.togglePause() } label: {
                     Image(systemName: model.settings.paused ? "play.fill" : "pause.fill")
                         .frame(width: 28, height: 28)
-                        .background(Circle().fill(Color.white.opacity(0.12)))
+                        .background(Circle().fill(Color.primary.opacity(0.12)))
                 }
                 .buttonStyle(.plain)
                 .keyboardShortcut("p")
@@ -34,10 +34,10 @@ struct MenuContent: View {
                     HStack {
                         Text(WorkText.title(model)).font(.caption.bold()).lineLimit(1)
                         Spacer()
-                        if model.busy { Button("Cancel") { model.cancelWork() }.buttonStyle(.plain).font(.caption).foregroundStyle(Theme.pink) }
+                        if model.busy { Button("Cancel") { model.cancelWork() }.buttonStyle(.plain).font(.caption).foregroundStyle(Theme.highlight) }
                     }
                     Text(WorkText.detail(model.work)).font(.caption2).foregroundStyle(Theme.textSecondary).lineLimit(1).truncationMode(.middle)
-                    if let work = model.work, work.total > 0 { ProgressView(value: work.fraction).tint(Theme.pink) }
+                    if let work = model.work, work.total > 0 { ProgressView(value: work.fraction).tint(Theme.highlight) }
                 }
                 .glassCard(padding: 10, radius: 12)
             }
@@ -68,7 +68,7 @@ struct MenuContent: View {
                 model.runNowAll()
             } label: {
                 HStack {
-                    if model.busy { ProgressView().controlSize(.small).tint(.white) }
+                    if model.busy { ProgressView().controlSize(.small) }
                     Text("Tidy Now")
                 }
                 .frame(maxWidth: .infinity)
@@ -89,13 +89,12 @@ struct MenuContent: View {
             }
             .buttonStyle(.plain)
             .font(.callout)
-            .foregroundStyle(.white.opacity(0.85))
+            .foregroundStyle(Theme.textSecondary)
         }
-        .foregroundStyle(.white)
+        .foregroundStyle(Theme.textPrimary)
         .padding(16)
         .frame(width: 330)
         .background(AppBackdrop())
-        .preferredColorScheme(.dark)
         .onAppear { model.refreshActivity() }
     }
 
@@ -142,7 +141,7 @@ enum StatusStyle {
         case .done: return Color(red: 0.3, green: 0.9, blue: 0.6)
         case .skipped: return .gray
         case .failed: return Color(red: 1, green: 0.4, blue: 0.45)
-        case .undone: return Theme.cyan
+        case .undone: return Theme.info
         }
     }
 }

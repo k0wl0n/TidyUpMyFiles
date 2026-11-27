@@ -292,7 +292,7 @@ struct RuleRow: View {
                 .font(.system(size: 7))
                 .foregroundStyle(rule.enabled ? .green : .secondary)
                 .accessibilityHidden(true)
-            Text(rule.name).lineLimit(1).foregroundStyle(.white)
+            Text(rule.name).lineLimit(1).foregroundStyle(Theme.textPrimary)
             Spacer()
             Text(rule.mode == .live ? "Live" : "Preview")
                 .font(.caption2.bold())
@@ -365,7 +365,7 @@ struct TemplateCard: View {
         }
         .padding(14)
         .frame(maxWidth: .infinity, minHeight: 150, alignment: .topLeading)
-        .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(Color.white.opacity(0.06)))
+        .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(Color.primary.opacity(0.06)))
         .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(addedHere ? Theme.done.opacity(0.45) : Theme.cardStroke))
     }
 }
@@ -403,7 +403,7 @@ struct FolderChips: View {
                 .truncationMode(.middle)
         }
         .font(.caption.weight(.semibold))
-        .foregroundStyle(.white.opacity(0.85))
+        .foregroundStyle(Theme.textSecondary)
         .padding(.horizontal, 8).padding(.vertical, 3)
         .background(Theme.done.opacity(0.16), in: Capsule())
         .accessibilityLabel("Already used in \(paths.joined(separator: ", "))")

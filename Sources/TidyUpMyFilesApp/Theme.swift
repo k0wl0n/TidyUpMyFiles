@@ -1,42 +1,45 @@
 import SwiftUI
 import TidyUpMyFilesCore
 
-/// TidyUpMyFiles's look: a deep violet-to-teal backdrop with soft glows, frosted cards and bright gradient icons.
+/// TidyUpMyFiles's look: plain macOS grays that follow the system's light or dark appearance, with colour
+/// only where it means something (the system accent for actions, green for done, teal for information).
 enum Theme {
-    static let ink = Color(red: 0.07, green: 0.05, blue: 0.16)
-    static let violet = Color(red: 0.23, green: 0.09, blue: 0.40)
-    static let deepTeal = Color(red: 0.04, green: 0.20, blue: 0.32)
-    static let pink = Color(red: 1.00, green: 0.37, blue: 0.64)
-    static let purple = Color(red: 0.55, green: 0.36, blue: 0.97)
-    static let cyan = Color(red: 0.19, green: 0.82, blue: 1.00)
-    static let done = Color(red: 0.4, green: 0.95, blue: 0.65)
+    static let background = adaptive(light: 0.95, dark: 0.11)
+    static let cardFill = adaptive(light: 1.0, dark: 0.17)
+    static let cardStroke = Color.primary.opacity(0.09)
 
-    static let textPrimary = Color.white
-    static let textSecondary = Color.white.opacity(0.62)
-    static let cardFill = Color.white.opacity(0.07)
-    static let cardStroke = Color.white.opacity(0.12)
+    static let highlight = Color.accentColor
+    static let info = Color(nsColor: .systemTeal)
+    static let done = Color(nsColor: .systemGreen)
+    static let purple = Color(nsColor: .systemPurple)
 
-    static let accent = LinearGradient(colors: [pink, purple], startPoint: .topLeading, endPoint: .bottomTrailing)
-    static let cool = LinearGradient(colors: [cyan, Color(red: 0.25, green: 0.45, blue: 1.0)], startPoint: .topLeading, endPoint: .bottomTrailing)
+    static let textPrimary = Color.primary
+    static let textSecondary = Color.secondary
+
+    static let accent = LinearGradient(colors: [highlight, highlight], startPoint: .top, endPoint: .bottom)
+    static let cool = gradient(Color(nsColor: .systemTeal), Color(nsColor: .systemBlue))
+
+    /// A gray that is `light` (0–1) in light mode and `dark` in dark mode.
+    private static func adaptive(light: CGFloat, dark: CGFloat) -> Color {
+        Color(nsColor: NSColor(name: nil) { appearance in
+            let isDark = appearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua
+            return NSColor(white: isDark ? dark : light, alpha: 1)
+        })
+    }
 
     static func gradient(_ first: Color, _ second: Color) -> LinearGradient {
         LinearGradient(colors: [first, second], startPoint: .topLeading, endPoint: .bottomTrailing)
     }
 }
 
-/// Full-window backdrop with two blurred colour glows.
+/// Full-window background.
 struct AppBackdrop: View {
     var body: some View {
-        ZStack {
-            LinearGradient(colors: [Theme.ink, Theme.violet, Theme.deepTeal], startPoint: .topLeading, endPoint: .bottomTrailing)
-            RadialGradient(colors: [Theme.pink.opacity(0.35), .clear], center: .init(x: 0.85, y: 0.1), startRadius: 10, endRadius: 520)
-            RadialGradient(colors: [Theme.cyan.opacity(0.22), .clear], center: .init(x: 0.15, y: 0.95), startRadius: 10, endRadius: 560)
-        }
-        .ignoresSafeArea()
+        Theme.background.ignoresSafeArea()
     }
 }
 
-/// Frosted card used for every panel.
+/// Card used for every panel.
 struct GlassCard: ViewModifier {
     var padding: CGFloat = 18
     var radius: CGFloat = 20
@@ -71,12 +74,11 @@ struct GradientIcon: View {
             .fill(gradient)
             .frame(width: size, height: size)
             .overlay(Image(systemName: systemName).font(.system(size: size * 0.5, weight: .semibold)).foregroundStyle(.white))
-            .shadow(color: .black.opacity(0.25), radius: 4, y: 2)
             .accessibilityHidden(true)
     }
 }
 
-/// Large pill button with the accent gradient.
+/// Large pill button in the accent colour.
 struct GradientButtonStyle: ButtonStyle {
     var gradient: LinearGradient = Theme.accent
 
@@ -87,25 +89,25 @@ struct GradientButtonStyle: ButtonStyle {
             .padding(.horizontal, 20)
             .padding(.vertical, 10)
             .background(Capsule().fill(gradient))
-            .shadow(color: Theme.pink.opacity(configuration.isPressed ? 0.15 : 0.35), radius: 10, y: 4)
+            .opacity(configuration.isPressed ? 0.85 : 1)
             .scaleEffect(configuration.isPressed ? 0.97 : 1)
     }
 }
 
-/// Quiet translucent pill for secondary actions.
+/// Quiet gray pill for secondary actions.
 struct GlassButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .font(.system(.body, design: .rounded).weight(.medium))
-            .foregroundStyle(.white)
+            .foregroundStyle(Theme.textPrimary)
             .padding(.horizontal, 16)
             .padding(.vertical, 8)
-            .background(Capsule().fill(Color.white.opacity(configuration.isPressed ? 0.18 : 0.10)))
+            .background(Capsule().fill(Color.primary.opacity(configuration.isPressed ? 0.14 : 0.07)))
             .overlay(Capsule().stroke(Theme.cardStroke))
     }
 }
 
-/// The big round button in the middle of Overview. It "breathes" (slowly grows and glows) while it waits,
+/// The big round button in the middle of Overview. It "breathes" (slowly grows) while it waits,
 /// shows a progress ring while busy, and keeps still when Reduce motion is on.
 struct OrbButton: View {
     let title: String
@@ -124,18 +126,17 @@ struct OrbButton: View {
     var body: some View {
         Button(action: action) {
             ZStack {
-                Circle().fill(Theme.accent.opacity(inhale && animates ? 0.42 : 0.24))
-                    .frame(width: 190, height: 190).blur(radius: 22)
-                Circle().stroke(Color.white.opacity(0.14), lineWidth: 1).frame(width: 164, height: 164)
+                Circle().fill(Theme.highlight.opacity(inhale && animates ? 0.16 : 0.08))
+                    .frame(width: 176, height: 176)
+                Circle().stroke(Theme.cardStroke, lineWidth: 1).frame(width: 164, height: 164)
                 if let progress, busy {
                     Circle().trim(from: 0, to: max(0.02, progress))
-                        .stroke(Color.white.opacity(0.9), style: StrokeStyle(lineWidth: 4, lineCap: .round))
+                        .stroke(Theme.highlight, style: StrokeStyle(lineWidth: 4, lineCap: .round))
                         .rotationEffect(.degrees(-90))
                         .frame(width: 164, height: 164)
                         .animation(.easeOut(duration: 0.2), value: progress)
                 }
                 Circle().fill(Theme.accent).frame(width: 140, height: 140)
-                    .shadow(color: Theme.pink.opacity(inhale && animates ? 0.75 : 0.45), radius: inhale && animates ? 28 : 16)
                 VStack(spacing: 2) {
                     if busy && progress == nil {
                         ProgressView().controlSize(.regular).tint(.white)
@@ -151,7 +152,7 @@ struct OrbButton: View {
                 .multilineTextAlignment(.center)
                 .frame(width: 124)
             }
-            .scaleEffect(inhale && animates ? 1.05 : 1.0)
+            .scaleEffect(inhale && animates ? 1.03 : 1.0)
         }
         .buttonStyle(.plain)
         .accessibilityLabel(subtitle.map { "\(title), \($0)" } ?? title)
@@ -249,15 +250,15 @@ struct WorkBanner: View {
     var body: some View {
         if model.busy || model.work != nil {
             HStack(spacing: 14) {
-                ProgressView().controlSize(.small).tint(.white)
+                ProgressView().controlSize(.small)
                 VStack(alignment: .leading, spacing: 5) {
-                    Text(WorkText.title(model)).font(.system(.callout, design: .rounded).weight(.semibold)).foregroundStyle(.white)
+                    Text(WorkText.title(model)).font(.system(.callout, design: .rounded).weight(.semibold)).foregroundStyle(Theme.textPrimary)
                     Text(WorkText.detail(model.work)).font(.caption).foregroundStyle(Theme.textSecondary)
                         .lineLimit(1).truncationMode(.middle)
                     if let work = model.work, work.total > 0 {
-                        ProgressView(value: work.fraction).tint(Theme.pink)
+                        ProgressView(value: work.fraction).tint(Theme.highlight)
                     } else {
-                        ProgressView().progressViewStyle(.linear).tint(Theme.pink)
+                        ProgressView().progressViewStyle(.linear).tint(Theme.highlight)
                     }
                 }
                 if model.busy {

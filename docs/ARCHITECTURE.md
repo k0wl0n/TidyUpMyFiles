@@ -75,6 +75,7 @@ scripts/render-homebrew.sh    Homebrew formula and cask for a release
   and quits (the watcher stays off). `TIDYUP_START_SECTION` (overview, rules, preview, activity,
   smartTrash, ai, general) picks the screen; with `preview` it runs a read-only simulation.
   `TIDYUP_SHOT_DELAY=<seconds>` changes when the picture is taken.
+  `TIDYUP_APPEARANCE=light` or `dark` forces that look instead of following the system.
 - `TIDYUP_SHOT_SCENE` (with `--screenshot`) stages states for documentation pictures, such as
   `rule-editor`, `rules-folder`, `report`, `menu`, `ai-suggestions`, `preview-folded`.
 - `TIDYUP_DEMO_HOME` and `TIDYUP_HOME`: see [CLI.md](CLI.md#environment).

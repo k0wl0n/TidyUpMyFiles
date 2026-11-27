@@ -5,6 +5,12 @@ Each release's notes on [GitHub Releases](../../releases) are generated from the
 
 ## [Unreleased]
 
+### Changed
+
+- New look in plain macOS grays that follows the system's light or dark mode, with colour only for
+  actions (the system accent colour), done (green) and information (teal). It replaces the violet-teal
+  gradient, which was always dark.
+
 ### Added
 
 - Rules per watched folder with nested AND / OR / NOT conditions and ordered actions: move, copy,

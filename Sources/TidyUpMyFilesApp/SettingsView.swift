@@ -80,8 +80,7 @@ struct SettingsView: View {
                 content
             }
         }
-        .preferredColorScheme(.dark)
-        .tint(Theme.pink)
+        .tint(Theme.highlight)
         .onChange(of: model.requestedSection) { requested in
             guard let requested else { return }
             section = requested
@@ -94,7 +93,7 @@ struct SettingsView: View {
         VStack(alignment: .leading, spacing: 4) {
             HStack(spacing: 10) {
                 AppLogo(size: 34)
-                Text("TidyUpMyFiles").font(.system(size: 18, weight: .bold, design: .rounded)).foregroundStyle(.white)
+                Text("TidyUpMyFiles").font(.system(size: 18, weight: .bold, design: .rounded)).foregroundStyle(Theme.textPrimary)
                     .lineLimit(1).minimumScaleFactor(0.75)
             }
             .padding(.horizontal, 10)
@@ -108,16 +107,16 @@ struct SettingsView: View {
                         Text(item.title).font(.system(.body, design: .rounded).weight(.medium))
                         Spacer()
                         if let badge = badge(for: item) {
-                            Text(badge).font(.caption2.bold())
+                            Text(badge).font(.caption2.bold()).foregroundStyle(.white)
                                 .padding(.horizontal, 7).padding(.vertical, 2)
-                                .background(Capsule().fill(Theme.pink))
+                                .background(Capsule().fill(Theme.highlight))
                         }
                     }
-                    .foregroundStyle(.white.opacity(section == item ? 1 : 0.8))
+                    .foregroundStyle(section == item ? Theme.textPrimary : Theme.textSecondary)
                     .padding(.horizontal, 10)
                     .padding(.vertical, 7)
                     .background(RoundedRectangle(cornerRadius: 10, style: .continuous)
-                        .fill(Color.white.opacity(section == item ? 0.13 : 0)))
+                        .fill(Color.primary.opacity(section == item ? 0.13 : 0)))
                     .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)
@@ -131,13 +130,13 @@ struct SettingsView: View {
         }
         .padding(12)
         .frame(width: 220)
-        .background(Color.black.opacity(0.22))
+        .background(Color.primary.opacity(0.05))
     }
 
     private var statusPill: some View {
         HStack(spacing: 8) {
             if model.busy || model.work != nil {
-                ProgressView().controlSize(.mini).tint(.white)
+                ProgressView().controlSize(.mini)
             } else {
                 Circle().fill(model.settings.paused ? Color.orange : Color.green).frame(width: 8, height: 8)
             }
@@ -147,10 +146,10 @@ struct SettingsView: View {
             Button(model.settings.paused ? "Resume" : "Pause") { model.togglePause() }
                 .buttonStyle(.plain)
                 .font(.callout)
-                .foregroundStyle(Theme.pink)
+                .foregroundStyle(Theme.highlight)
         }
         .help("Watching means new files in your folders are handled as they arrive. Pause stops that until you resume.")
-        .foregroundStyle(.white)
+        .foregroundStyle(Theme.textPrimary)
         .glassCard(padding: 10, radius: 12)
         .accessibilityElement(children: .combine)
     }
@@ -187,8 +186,8 @@ struct SettingsView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             if let message = model.message {
                 HStack(spacing: 10) {
-                    Image(systemName: "info.circle.fill").foregroundStyle(Theme.cyan).accessibilityHidden(true)
-                    Text(message).lineLimit(3).foregroundStyle(.white)
+                    Image(systemName: "info.circle.fill").foregroundStyle(Theme.info).accessibilityHidden(true)
+                    Text(message).lineLimit(3).foregroundStyle(Theme.textPrimary)
                     Spacer()
                     ForEach(Array(model.messageActions.enumerated()), id: \.element.id) { index, action in
                         Button(action.title) { model.handle(action) }

@@ -90,7 +90,7 @@ struct PreviewTab: View {
                         active: filter == .newFolders) { filter = .newFolders }
             SummaryChip(value: "\(attention)", label: "need attention", icon: "exclamationmark.triangle.fill",
                         gradient: AppSection.preview.gradient, active: filter == .attention) { filter = .attention }
-            if model.inspectingPreviews { ProgressView().controlSize(.small).tint(.white) }
+            if model.inspectingPreviews { ProgressView().controlSize(.small) }
         }
     }
 
@@ -103,7 +103,7 @@ struct PreviewTab: View {
                     .accessibilityLabel("Search waiting items")
             }
             .padding(.horizontal, 12).padding(.vertical, 7)
-            .background(Capsule().fill(Color.white.opacity(0.08)))
+            .background(Capsule().fill(Color.primary.opacity(0.08)))
             .overlay(Capsule().stroke(Theme.cardStroke))
             Picker("Group by", selection: $grouping) {
                 ForEach(Grouping.allCases) { Text($0.rawValue).tag($0) }
@@ -243,7 +243,7 @@ struct PreviewTab: View {
                     Image(systemName: allSelected ? "checkmark.square.fill" : "square")
                 }
                 .buttonStyle(.plain)
-                .foregroundStyle(allSelected ? Theme.pink : Theme.textSecondary)
+                .foregroundStyle(allSelected ? Theme.highlight : Theme.textSecondary)
                 .accessibilityLabel(allSelected ? "Deselect group" : "Select group")
                 Button { toggleCollapse(group) } label: {
                     HStack(spacing: 10) {
@@ -251,8 +251,8 @@ struct PreviewTab: View {
                             .font(.caption.bold())
                             .rotationEffect(.degrees(folded ? 0 : 90))
                             .foregroundStyle(Theme.textSecondary)
-                        Image(systemName: group.icon).foregroundStyle(Theme.cyan).accessibilityHidden(true)
-                        Text(group.title).font(.system(.headline, design: .rounded)).foregroundStyle(.white)
+                        Image(systemName: group.icon).foregroundStyle(Theme.info).accessibilityHidden(true)
+                        Text(group.title).font(.system(.headline, design: .rounded)).foregroundStyle(Theme.textPrimary)
                             .lineLimit(1).truncationMode(.middle)
                         if let note = group.note { Badge(text: note, color: Color(red: 0.4, green: 0.95, blue: 0.65)) }
                         Spacer()
@@ -275,8 +275,8 @@ struct PreviewTab: View {
         .padding(.horizontal, 10).padding(.vertical, 8)
         .background(
             RoundedRectangle(cornerRadius: 12, style: .continuous)
-                .fill(Theme.ink)
-                .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).fill(Color.white.opacity(0.06)))
+                .fill(Theme.background)
+                .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).fill(Color.primary.opacity(0.06)))
         )
         .animation(.easeInOut(duration: 0.15), value: folded)
     }
@@ -319,7 +319,7 @@ struct PreviewTab: View {
             GradientIcon(systemName: "magnifyingglass", gradient: Theme.cool, size: 34)
             VStack(alignment: .leading, spacing: 6) {
                 Text("Scan finished — \(found) file(s) found. Nothing has moved yet.")
-                    .font(.system(.callout, design: .rounded).weight(.semibold)).foregroundStyle(.white)
+                    .font(.system(.callout, design: .rounded).weight(.semibold)).foregroundStyle(Theme.textPrimary)
                 HStack(spacing: 18) {
                     Label("Check each file's FROM → TO", systemImage: "1.circle.fill")
                     Label("Tick the ones you want (or none)", systemImage: "2.circle.fill")
@@ -338,8 +338,8 @@ struct PreviewTab: View {
 
     private var scanningState: some View {
         VStack(spacing: 14) {
-            ProgressView().controlSize(.large).tint(.white)
-            Text("Scanning your folders…").font(.system(size: 22, weight: .bold, design: .rounded)).foregroundStyle(.white)
+            ProgressView().controlSize(.large)
+            Text("Scanning your folders…").font(.system(size: 22, weight: .bold, design: .rounded)).foregroundStyle(Theme.textPrimary)
             Text("Nothing is moved while simulating. Results appear here when the scan finishes; the banner above shows how far it is.")
                 .foregroundStyle(Theme.textSecondary).multilineTextAlignment(.center).frame(maxWidth: 460)
         }
@@ -349,7 +349,7 @@ struct PreviewTab: View {
     private var emptyState: some View {
         VStack(spacing: 14) {
             Image(systemName: "checkmark.seal.fill").font(.system(size: 54)).foregroundStyle(Theme.accent)
-            Text("Nothing is waiting").font(.system(size: 22, weight: .bold, design: .rounded)).foregroundStyle(.white)
+            Text("Nothing is waiting").font(.system(size: 22, weight: .bold, design: .rounded)).foregroundStyle(Theme.textPrimary)
             Text("Rules in preview mode and simulations show here, with exactly where each file would go, before anything moves.")
                 .foregroundStyle(Theme.textSecondary).multilineTextAlignment(.center).frame(maxWidth: 460)
             Button("Simulate All Folders") { model.simulateAll() }
@@ -394,7 +394,7 @@ private struct PreviewRow: View {
                 Image(systemName: isSelected ? "checkmark.square.fill" : "square").font(.title3)
             }
             .buttonStyle(.plain)
-            .foregroundStyle(isSelected ? Theme.pink : Theme.textSecondary)
+            .foregroundStyle(isSelected ? Theme.highlight : Theme.textSecondary)
             .padding(.top, 8)
             .accessibilityLabel(isSelected ? "Deselect \(detail.item.file.lastPathComponent)" : "Select \(detail.item.file.lastPathComponent)")
 
@@ -404,9 +404,9 @@ private struct PreviewRow: View {
                 HStack(spacing: 8) {
                     Text(detail.item.file.lastPathComponent)
                         .font(.system(.body, design: .rounded).weight(.semibold))
-                        .foregroundStyle(.white)
+                        .foregroundStyle(Theme.textPrimary)
                         .lineLimit(1).truncationMode(.middle)
-                    Badge(text: detail.item.ruleName, color: Theme.cyan)
+                    Badge(text: detail.item.ruleName, color: Theme.info)
                     Spacer(minLength: 4)
                     Text(PreviewText.meta(detail)).font(.caption).foregroundStyle(Theme.textSecondary).lineLimit(1)
                 }
@@ -422,9 +422,9 @@ private struct PreviewRow: View {
         }
         .padding(12)
         .background(RoundedRectangle(cornerRadius: 14, style: .continuous)
-            .fill(isFocused ? Color.white.opacity(0.13) : Color.white.opacity(0.05)))
+            .fill(isFocused ? Color.primary.opacity(0.13) : Color.primary.opacity(0.05)))
         .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous)
-            .stroke(isFocused ? Theme.pink.opacity(0.7) : Color.clear, lineWidth: 1.5))
+            .stroke(isFocused ? Theme.highlight.opacity(0.7) : Color.clear, lineWidth: 1.5))
         .contentShape(Rectangle())
         .accessibilityElement(children: .combine)
     }
@@ -472,7 +472,7 @@ private struct StepLabel: View {
         }
         .foregroundStyle(gradient == nil ? Theme.textSecondary : .white)
         .frame(width: 78, height: 20)
-        .background(Capsule().fill(gradient.map(AnyShapeStyle.init) ?? AnyShapeStyle(Color.black.opacity(0.25))))
+        .background(Capsule().fill(gradient.map(AnyShapeStyle.init) ?? AnyShapeStyle(Color.primary.opacity(0.05))))
         .accessibilityLabel(text.lowercased())
     }
 }
@@ -486,11 +486,11 @@ private struct PathText: View {
     var body: some View {
         HStack(spacing: 0) {
             Text(PathTools.abbreviate(folder.path) + "/")
-                .foregroundStyle(highlight ? Theme.cyan : Theme.textSecondary)
+                .foregroundStyle(highlight ? Theme.info : Theme.textSecondary)
                 .lineLimit(1).truncationMode(.middle)
                 .layoutPriority(0)
             if let name {
-                Text(name).fontWeight(.semibold).foregroundStyle(Theme.pink)
+                Text(name).fontWeight(.semibold).foregroundStyle(Theme.highlight)
                     .lineLimit(1).truncationMode(.middle)
                     .layoutPriority(1)
             }
@@ -531,7 +531,7 @@ private struct PreviewDetailPanel: View {
                 HStack(spacing: 12) {
                     FileIconView(url: detail.item.file, size: 54)
                     VStack(alignment: .leading, spacing: 3) {
-                        Text(detail.item.file.lastPathComponent).font(.headline).foregroundStyle(.white)
+                        Text(detail.item.file.lastPathComponent).font(.headline).foregroundStyle(Theme.textPrimary)
                             .lineLimit(3).fixedSize(horizontal: false, vertical: true)
                         Text(PreviewText.meta(detail)).font(.caption).foregroundStyle(Theme.textSecondary)
                     }
@@ -541,8 +541,8 @@ private struct PreviewDetailPanel: View {
                 HStack {
                     Spacer()
                     VStack(spacing: 4) {
-                        Image(systemName: "arrow.down").font(.title2.bold()).foregroundStyle(Theme.pink)
-                        Text(PreviewText.sentence(detail)).font(.caption).foregroundStyle(.white).multilineTextAlignment(.center)
+                        Image(systemName: "arrow.down").font(.title2.bold()).foregroundStyle(Theme.highlight)
+                        Text(PreviewText.sentence(detail)).font(.caption).foregroundStyle(Theme.textPrimary).multilineTextAlignment(.center)
                     }
                     Spacer()
                 }
@@ -550,7 +550,7 @@ private struct PreviewDetailPanel: View {
                     PanelNote(icon: "trash.fill", text: "Goes to the Trash. Nothing is deleted for good; you can undo it.",
                               color: Color(red: 1, green: 0.5, blue: 0.55))
                 } else if let final = detail.finalLocation {
-                    PathBox(title: "To", url: final, highlightName: detail.nameChanges, tint: Theme.cyan)
+                    PathBox(title: "To", url: final, highlightName: detail.nameChanges, tint: Theme.info)
                 }
 
                 ForEach(PreviewText.explanations(detail), id: \.text) { note in
@@ -564,7 +564,7 @@ private struct PreviewDetailPanel: View {
                             HStack(alignment: .top, spacing: 8) {
                                 Text("\(step.index + 1)").font(.caption.bold()).frame(width: 18, height: 18)
                                     .background(Circle().fill(PreviewText.verbGradient(step.verb)))
-                                Text(PreviewText.stepText(step)).font(.caption).foregroundStyle(.white)
+                                Text(PreviewText.stepText(step)).font(.caption).foregroundStyle(Theme.textPrimary)
                                     .fixedSize(horizontal: false, vertical: true)
                             }
                         }
@@ -603,7 +603,7 @@ private struct PathBox: View {
                         .font(.system(.callout, design: .monospaced)).foregroundStyle(Theme.textSecondary)
                     Text(url.lastPathComponent)
                         .font(.system(.callout, design: .monospaced).weight(.semibold))
-                        .foregroundStyle(highlightName ? Theme.pink : .white)
+                        .foregroundStyle(highlightName ? Theme.highlight : Theme.textPrimary)
                 }
                 .textSelection(.enabled)
                 .fixedSize(horizontal: false, vertical: true)
@@ -623,7 +623,7 @@ private struct PanelNote: View {
     var body: some View {
         HStack(alignment: .top, spacing: 8) {
             Image(systemName: icon).foregroundStyle(color).accessibilityHidden(true)
-            Text(text).font(.caption).foregroundStyle(.white).fixedSize(horizontal: false, vertical: true)
+            Text(text).font(.caption).foregroundStyle(Theme.textPrimary).fixedSize(horizontal: false, vertical: true)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(10)
@@ -765,7 +765,7 @@ private enum PreviewText {
         if notes.isEmpty && !detail.goesToTrash {
             notes.append(Note(text: "No conflicts: the destination is free.", icon: "checkmark.circle.fill", color: green))
         }
-        notes.append(Note(text: "Every step is logged and can be undone from Activity.", icon: "arrow.uturn.backward.circle", color: Theme.cyan))
+        notes.append(Note(text: "Every step is logged and can be undone from Activity.", icon: "arrow.uturn.backward.circle", color: Theme.info))
         return notes
     }
 }
@@ -783,14 +783,14 @@ private struct SummaryChip: View {
             HStack(spacing: 8) {
                 GradientIcon(systemName: icon, gradient: gradient, size: 24)
                 VStack(alignment: .leading, spacing: 0) {
-                    Text(value).font(.system(.headline, design: .rounded).monospacedDigit()).foregroundStyle(.white)
+                    Text(value).font(.system(.headline, design: .rounded).monospacedDigit()).foregroundStyle(Theme.textPrimary)
                     Text(label).font(.caption2).foregroundStyle(Theme.textSecondary).lineLimit(1)
                 }
             }
             .padding(.horizontal, 10).padding(.vertical, 7)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(RoundedRectangle(cornerRadius: 12, style: .continuous).fill(Color.white.opacity(active ? 0.16 : 0.06)))
-            .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(active ? Theme.pink.opacity(0.7) : Theme.cardStroke))
+            .background(RoundedRectangle(cornerRadius: 12, style: .continuous).fill(Color.primary.opacity(active ? 0.16 : 0.06)))
+            .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(active ? Theme.highlight.opacity(0.7) : Theme.cardStroke))
         }
         .buttonStyle(.plain)
         .help("Show only: \(label)")

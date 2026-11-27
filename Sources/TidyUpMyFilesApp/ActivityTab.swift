@@ -63,7 +63,7 @@ struct ActivityTab: View {
                         .accessibilityLabel("Search activity")
                 }
                 .padding(.horizontal, 12).padding(.vertical, 6)
-                .background(Capsule().fill(Color.white.opacity(0.08)))
+                .background(Capsule().fill(Color.primary.opacity(0.08)))
                 .overlay(Capsule().stroke(Theme.cardStroke))
                 Picker("Status", selection: $status) {
                     Text("Any status").tag(ActivityStatus?.none)
@@ -102,7 +102,7 @@ struct ActivityTab: View {
                     if runs.isEmpty {
                         VStack(spacing: 10) {
                             Image(systemName: "clock.arrow.circlepath").font(.system(size: 44)).foregroundStyle(Theme.accent)
-                            Text("Nothing has happened yet").font(.system(.title3, design: .rounded).bold()).foregroundStyle(.white)
+                            Text("Nothing has happened yet").font(.system(.title3, design: .rounded).bold()).foregroundStyle(Theme.textPrimary)
                             Text("Every time files are tidied, the run shows up here with what happened to each file.")
                                 .foregroundStyle(Theme.textSecondary)
                         }
@@ -256,7 +256,7 @@ private struct RunCard: View {
                 HStack(spacing: 12) {
                     GradientIcon(systemName: RunText.icon(run.trigger), gradient: RunText.gradient(run.trigger), size: 34)
                     VStack(alignment: .leading, spacing: 3) {
-                        Text(RunText.title(run.trigger)).font(.system(.headline, design: .rounded)).foregroundStyle(.white)
+                        Text(RunText.title(run.trigger)).font(.system(.headline, design: .rounded)).foregroundStyle(Theme.textPrimary)
                         Text("\(PathTools.abbreviate(run.folder)) · \(run.startedAt.formatted(date: .abbreviated, time: .shortened)) · run \(run.id)")
                             .font(.caption).foregroundStyle(Theme.textSecondary).lineLimit(1).truncationMode(.middle)
                     }
@@ -289,9 +289,9 @@ private struct RunCard: View {
             }
         }
         .padding(14)
-        .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(Color.white.opacity(isFocused ? 0.12 : 0.07)))
+        .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(Color.primary.opacity(isFocused ? 0.12 : 0.07)))
         .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous)
-            .stroke(isFocused ? Theme.pink.opacity(0.7) : Theme.cardStroke, lineWidth: isFocused ? 1.5 : 1))
+            .stroke(isFocused ? Theme.highlight.opacity(0.7) : Theme.cardStroke, lineWidth: isFocused ? 1.5 : 1))
     }
 }
 
@@ -314,10 +314,10 @@ private struct StepLine: View {
             VStack(alignment: .leading, spacing: 3) {
                 HStack(spacing: 8) {
                     Text(URL(fileURLWithPath: record.sourcePath).lastPathComponent)
-                        .font(.callout.weight(.semibold)).foregroundStyle(.white).lineLimit(1).truncationMode(.middle)
+                        .font(.callout.weight(.semibold)).foregroundStyle(Theme.textPrimary).lineLimit(1).truncationMode(.middle)
                     Text(StepLine.tag(record))
                         .font(.system(size: 9, weight: .heavy)).foregroundStyle(Theme.textSecondary)
-                    Text(record.ruleName).font(.caption2).foregroundStyle(Theme.cyan)
+                    Text(record.ruleName).font(.caption2).foregroundStyle(Theme.info)
                     Spacer()
                     Text(record.timestamp.formatted(date: .omitted, time: .standard)).font(.caption2).foregroundStyle(Theme.textSecondary)
                 }
@@ -326,7 +326,7 @@ private struct StepLine: View {
                     .lineLimit(1).truncationMode(.middle)
                 if let target = record.targetPath {
                     Text("to    " + PathTools.abbreviate(target))
-                        .font(.system(.caption, design: .monospaced)).foregroundStyle(Theme.cyan)
+                        .font(.system(.caption, design: .monospaced)).foregroundStyle(Theme.info)
                         .lineLimit(1).truncationMode(.middle)
                         .textSelection(.enabled)
                 }
@@ -336,7 +336,7 @@ private struct StepLine: View {
             }
         }
         .padding(8)
-        .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(Color.black.opacity(0.18)))
+        .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(Color.primary.opacity(0.05)))
         .accessibilityElement(children: .combine)
     }
 }
@@ -384,7 +384,7 @@ enum RunText {
 
     static func chips(_ run: RunSummary) -> [Chip] {
         var chips = run.actionCounts.sorted { $0.value > $1.value }.prefix(3)
-            .map { Chip(text: "\($0.value) \(RunReport.pastTense($0.key))", color: Theme.cyan) }
+            .map { Chip(text: "\($0.value) \(RunReport.pastTense($0.key))", color: Theme.info) }
         if run.count(.undone) > 0 { chips.append(Chip(text: "\(run.count(.undone)) undone", color: .gray)) }
         if run.count(.skipped) > 0 { chips.append(Chip(text: "\(run.count(.skipped)) skipped", color: .orange)) }
         if run.count(.failed) > 0 { chips.append(Chip(text: "\(run.count(.failed)) failed", color: Color(red: 1, green: 0.5, blue: 0.55))) }
@@ -403,8 +403,8 @@ struct RunReportCard: View {
                              gradient: report.failed > 0 ? AppSection.preview.gradient : AppSection.activity.gradient, size: 36)
                 VStack(alignment: .leading, spacing: 3) {
                     Text((report.cancelled ? "Stopped — " : "Finished — ") + report.title)
-                        .font(.system(.callout, design: .rounded).weight(.semibold)).foregroundStyle(.white)
-                    Text(report.summary).font(.callout).foregroundStyle(Theme.cyan)
+                        .font(.system(.callout, design: .rounded).weight(.semibold)).foregroundStyle(Theme.textPrimary)
+                    Text(report.summary).font(.callout).foregroundStyle(Theme.info)
                     if !report.examples.isEmpty {
                         Text(report.examples.joined(separator: "   ") + (report.done.count > 3 ? "   …" : ""))
                             .font(.caption).foregroundStyle(Theme.textSecondary).lineLimit(1).truncationMode(.tail)

@@ -89,7 +89,7 @@ final class SettingsWindowController: NSObject, NSWindowDelegate {
         let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 330, height: 560),
                               styleMask: [.borderless], backing: .buffered, defer: false)
         window.isReleasedWhenClosed = false
-        window.appearance = NSAppearance(named: .darkAqua)
+        window.appearance = ShotAppearance.forced
         let hosting = NSHostingView(rootView: ShotScene.menuView(AppModel.shared))
         window.contentView = hosting
         window.setContentSize(hosting.fittingSize)
@@ -107,8 +107,8 @@ final class SettingsWindowController: NSObject, NSWindowDelegate {
         window.titleVisibility = .hidden
         window.titlebarAppearsTransparent = true
         window.isMovableByWindowBackground = true
-        window.appearance = NSAppearance(named: .darkAqua)
-        window.backgroundColor = NSColor(red: 0.07, green: 0.05, blue: 0.16, alpha: 1)
+        window.appearance = ShotAppearance.forced
+        window.backgroundColor = NSColor(Theme.background)
         window.isReleasedWhenClosed = false
         window.minSize = NSSize(width: 940, height: 600)
         window.contentView = NSHostingView(rootView: SettingsView().environmentObject(AppModel.shared))
@@ -178,6 +178,17 @@ enum SingleInstance {
     static func listenForShowRequests() {
         DistributedNotificationCenter.default().addObserver(forName: showWindow, object: nil, queue: .main) { _ in
             Task { @MainActor in SettingsWindowController.shared.show(activate: true) }
+        }
+    }
+}
+
+/// Follows the system's light or dark mode; `TIDYUP_APPEARANCE=light|dark` forces one (for screenshots).
+enum ShotAppearance {
+    static var forced: NSAppearance? {
+        switch ProcessInfo.processInfo.environment["TIDYUP_APPEARANCE"] {
+        case "light": return NSAppearance(named: .aqua)
+        case "dark": return NSAppearance(named: .darkAqua)
+        default: return nil
         }
     }
 }

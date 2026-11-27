@@ -185,10 +185,16 @@ Use the included rule templates or create your own.
 <table>
   <tr>
     <td width="50%" align="center">
-      <img src=".github/assets/03-rule-editor.jpg" width="400" alt="Visual rule editor">
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset=".github/assets/03-rule-editor-dark.jpg">
+        <img src=".github/assets/03-rule-editor.jpg" width="400" alt="Visual rule editor">
+      </picture>
     </td>
     <td width="50%" align="center">
-      <img src=".github/assets/04-preview-detail.jpg" width="400" alt="File operation preview">
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset=".github/assets/04-preview-detail-dark.jpg">
+        <img src=".github/assets/04-preview-detail.jpg" width="400" alt="File operation preview">
+      </picture>
     </td>
   </tr>
   <tr>
@@ -206,14 +212,20 @@ Use the included rule templates or create your own.
 ### Activity and undo
 
 <div align="center">
-  <img src=".github/assets/06-activity-runs.jpg" width="720" alt="Activity history and undo">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset=".github/assets/06-activity-runs-dark.jpg">
+    <img src=".github/assets/06-activity-runs.jpg" width="720" alt="Activity history and undo">
+  </picture>
   <p>Review previous runs, track file changes, and undo supported operations.</p>
 </div>
 
 ### Menu bar
 
 <div align="center">
-  <img src=".github/assets/11-menu-bar.jpg" width="260" alt="TidyUpMyFiles menu bar">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset=".github/assets/11-menu-bar-dark.jpg">
+    <img src=".github/assets/11-menu-bar.jpg" width="260" alt="TidyUpMyFiles menu bar">
+  </picture>
   <p>Scan folders and manage automation directly from the macOS menu bar.</p>
 </div>
 

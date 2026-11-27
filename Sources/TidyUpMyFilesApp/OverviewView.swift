@@ -55,7 +55,7 @@ struct OverviewView: View {
             orb.padding(.top, 26)
             Text(headline)
                 .font(.system(size: 30, weight: .bold, design: .rounded))
-                .foregroundStyle(.white)
+                .foregroundStyle(Theme.textPrimary)
             Text(explanation)
                 .font(.callout)
                 .foregroundStyle(Theme.textSecondary)
@@ -156,9 +156,9 @@ struct OverviewView: View {
                             Text("\(item.count)").bold()
                         }
                         .font(.callout)
-                        .foregroundStyle(.white)
+                        .foregroundStyle(Theme.textPrimary)
                         .padding(.horizontal, 12).padding(.vertical, 7)
-                        .background(Capsule().fill(Color.white.opacity(0.08)))
+                        .background(Capsule().fill(Color.primary.opacity(0.08)))
                         .overlay(Capsule().stroke(Theme.cardStroke))
                         .help("\(item.count) file(s) go to \(item.fullPath)")
                     }
@@ -218,9 +218,9 @@ struct OverviewView: View {
     private var recommendedBar: some View {
         if model.missingRecommendedCount > 0 {
             HStack(spacing: 10) {
-                Image(systemName: "wand.and.stars").foregroundStyle(Theme.pink).accessibilityHidden(true)
+                Image(systemName: "wand.and.stars").foregroundStyle(Theme.highlight).accessibilityHidden(true)
                 Text("\(model.missingRecommendedCount) recommended rule(s) not set up yet.")
-                    .foregroundStyle(.white)
+                    .foregroundStyle(Theme.textPrimary)
                 Button("Use Recommended Rules") { model.installRecommended() }
                     .buttonStyle(GradientButtonStyle())
             }
@@ -228,9 +228,9 @@ struct OverviewView: View {
             .glassCard(padding: 10, radius: 16)
         } else if model.recommendedInPreviewCount > 0 {
             HStack(spacing: 10) {
-                Image(systemName: "eye.fill").foregroundStyle(Theme.pink).accessibilityHidden(true)
+                Image(systemName: "eye.fill").foregroundStyle(Theme.highlight).accessibilityHidden(true)
                 Text("\(model.recommendedInPreviewCount) recommended rule(s) are only previewing.")
-                    .foregroundStyle(.white)
+                    .foregroundStyle(Theme.textPrimary)
                 Button("Turn Them On") { confirmGoLive = true }
                     .buttonStyle(GradientButtonStyle())
             }
@@ -242,15 +242,15 @@ struct OverviewView: View {
     private var recentCard: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                Text("Recent activity").font(.headline).foregroundStyle(.white)
+                Text("Recent activity").font(.headline).foregroundStyle(Theme.textPrimary)
                 Spacer()
-                Button("See all") { openSection(.activity) }.buttonStyle(.plain).foregroundStyle(Theme.pink)
+                Button("See all") { openSection(.activity) }.buttonStyle(.plain).foregroundStyle(Theme.highlight)
             }
             if model.recent.isEmpty {
                 Text("Nothing yet. Tidied files will show up here.").foregroundStyle(Theme.textSecondary)
             } else {
                 ForEach(model.recent.prefix(5)) { record in
-                    ActivityLine(record: record).foregroundStyle(.white)
+                    ActivityLine(record: record).foregroundStyle(Theme.textPrimary)
                 }
             }
             Spacer(minLength: 0)
@@ -262,15 +262,15 @@ struct OverviewView: View {
     private var templatesCard: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack {
-                Text("Ready-made rules").font(.headline).foregroundStyle(.white)
+                Text("Ready-made rules").font(.headline).foregroundStyle(Theme.textPrimary)
                 Spacer()
-                Button("Open Rules") { openSection(.rules) }.buttonStyle(.plain).foregroundStyle(Theme.pink)
+                Button("Open Rules") { openSection(.rules) }.buttonStyle(.plain).foregroundStyle(Theme.highlight)
             }
             ForEach(Templates.all) { template in
                 HStack(spacing: 10) {
                     GradientIcon(systemName: TemplateStyle.icon(template.id), gradient: TemplateStyle.gradient(template.id), size: 26)
                     VStack(alignment: .leading, spacing: 1) {
-                        Text(template.title).foregroundStyle(.white).font(.callout.weight(.semibold))
+                        Text(template.title).foregroundStyle(Theme.textPrimary).font(.callout.weight(.semibold))
                         Text(template.detail).foregroundStyle(Theme.textSecondary).font(.caption).lineLimit(1)
                     }
                     Spacer()
@@ -281,7 +281,7 @@ struct OverviewView: View {
                     } else {
                         Button { model.install(template) } label: { Image(systemName: "plus.circle.fill").font(.title3) }
                             .buttonStyle(.plain)
-                            .foregroundStyle(Theme.pink)
+                            .foregroundStyle(Theme.highlight)
                             .accessibilityLabel("Add template \(template.title)")
                     }
                 }
@@ -302,7 +302,7 @@ struct StatTile: View {
         HStack(spacing: 12) {
             GradientIcon(systemName: icon, gradient: gradient, size: 34)
             VStack(alignment: .leading, spacing: 0) {
-                Text(value).font(.system(size: 24, weight: .bold, design: .rounded).monospacedDigit()).foregroundStyle(.white)
+                Text(value).font(.system(size: 24, weight: .bold, design: .rounded).monospacedDigit()).foregroundStyle(Theme.textPrimary)
                 Text(label).font(.caption).foregroundStyle(Theme.textSecondary)
             }
             Spacer(minLength: 0)
@@ -346,7 +346,7 @@ enum TemplateStyle {
         case "spreadsheets": return AppSection.activity.gradient
         case "presentations": return AppSection.preview.gradient
         case "videos": return Theme.gradient(Color(red: 1, green: 0.35, blue: 0.45), Theme.purple)
-        case "audio": return Theme.gradient(Theme.pink, Color(red: 1, green: 0.55, blue: 0.3))
+        case "audio": return Theme.gradient(Theme.highlight, Color(red: 1, green: 0.55, blue: 0.3))
         case "code": return AppSection.general.gradient
         case "ebooks": return Theme.gradient(Color(red: 0.55, green: 0.4, blue: 0.25), Color(red: 0.85, green: 0.6, blue: 0.3))
         case "fonts": return AppSection.ai.gradient

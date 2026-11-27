@@ -138,9 +138,9 @@ enum StatusStyle {
 
     static func color(_ status: ActivityStatus) -> Color {
         switch status {
-        case .done: return Color(red: 0.3, green: 0.9, blue: 0.6)
+        case .done: return Theme.done
         case .skipped: return .gray
-        case .failed: return Color(red: 1, green: 0.4, blue: 0.45)
+        case .failed: return Theme.danger
         case .undone: return Theme.info
         }
     }

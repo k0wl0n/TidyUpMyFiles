@@ -289,7 +289,7 @@ private struct RunCard: View {
             }
         }
         .padding(14)
-        .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(Color.primary.opacity(isFocused ? 0.12 : 0.07)))
+        .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(Theme.cardFill))
         .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous)
             .stroke(isFocused ? Theme.highlight.opacity(0.7) : Theme.cardStroke, lineWidth: isFocused ? 1.5 : 1))
     }
@@ -331,12 +331,12 @@ private struct StepLine: View {
                         .textSelection(.enabled)
                 }
                 if !record.message.isEmpty && record.status != .done {
-                    Text(record.message).font(.caption).foregroundStyle(record.status == .failed ? Color(red: 1, green: 0.5, blue: 0.55) : .orange)
+                    Text(record.message).font(.caption).foregroundStyle(record.status == .failed ? Theme.danger : Theme.warning)
                 }
             }
         }
         .padding(8)
-        .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(Color.primary.opacity(0.05)))
+        .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(Theme.rowFill))
         .accessibilityElement(children: .combine)
     }
 }
@@ -386,8 +386,8 @@ enum RunText {
         var chips = run.actionCounts.sorted { $0.value > $1.value }.prefix(3)
             .map { Chip(text: "\($0.value) \(RunReport.pastTense($0.key))", color: Theme.info) }
         if run.count(.undone) > 0 { chips.append(Chip(text: "\(run.count(.undone)) undone", color: .gray)) }
-        if run.count(.skipped) > 0 { chips.append(Chip(text: "\(run.count(.skipped)) skipped", color: .orange)) }
-        if run.count(.failed) > 0 { chips.append(Chip(text: "\(run.count(.failed)) failed", color: Color(red: 1, green: 0.5, blue: 0.55))) }
+        if run.count(.skipped) > 0 { chips.append(Chip(text: "\(run.count(.skipped)) skipped", color: Theme.warning)) }
+        if run.count(.failed) > 0 { chips.append(Chip(text: "\(run.count(.failed)) failed", color: Theme.danger)) }
         return chips
     }
 }

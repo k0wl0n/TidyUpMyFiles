@@ -85,7 +85,7 @@ struct AITab: View {
         let local = ai.wrappedValue.provider.isLocal && (ai.wrappedValue.endpoint.contains("localhost") || ai.wrappedValue.endpoint.contains("127.0.0.1"))
         return Label(local ? "Data stays on this Mac (local Ollama)." : "File names and metadata leave this Mac and go to \(ai.wrappedValue.endpoint).",
                      systemImage: local ? "lock.shield" : "network")
-            .foregroundStyle(local ? .green : .orange)
+            .foregroundStyle(local ? .green : Theme.warning)
             .font(.callout)
     }
 

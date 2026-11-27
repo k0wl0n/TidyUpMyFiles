@@ -181,7 +181,7 @@ private struct ActionRow: View {
                 .accessibilityLabel("Shortcut name")
             Label("Runs the Shortcut with the file as input. Turn on “Allow Shortcuts” in Settings first; it can't be undone.",
                   systemImage: "exclamationmark.triangle.fill")
-                .font(.caption).foregroundStyle(.orange)
+                .font(.caption).foregroundStyle(Theme.warning)
         case .archive(let destination, let policy):
             HStack {
                 TextField("Folder for the zip (empty = next to the file)", text: Binding(
@@ -208,7 +208,7 @@ private struct ActionRow: View {
                   : "Shell scripts are off. Turn them on in General if you trust this rule; until then this step is skipped.",
                   systemImage: "exclamationmark.triangle.fill")
                 .font(.caption)
-                .foregroundStyle(.orange)
+                .foregroundStyle(Theme.warning)
         }
     }
 

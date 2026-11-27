@@ -276,7 +276,7 @@ struct OverviewView: View {
                     Spacer()
                     if model.isInstalled(template) {
                         Image(systemName: "checkmark.circle.fill").font(.title3)
-                            .foregroundStyle(Color(red: 0.4, green: 0.95, blue: 0.65))
+                            .foregroundStyle(Theme.done)
                             .accessibilityLabel("\(template.title) already added")
                     } else {
                         Button { model.install(template) } label: { Image(systemName: "plus.circle.fill").font(.title3) }

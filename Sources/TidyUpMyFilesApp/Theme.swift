@@ -8,22 +8,34 @@ enum Theme {
     static let cardFill = adaptive(light: 1.0, dark: 0.17)
     static let cardStroke = Color.primary.opacity(0.09)
 
+    /// Rows and boxes inside a card, and the same when focused or selected.
+    static let rowFill = adaptive(light: 0.965, dark: 0.21)
+    static let rowFillActive = adaptive(light: 0.915, dark: 0.26)
+
     static let highlight = Color.accentColor
-    static let info = Color(nsColor: .systemTeal)
-    static let done = Color(nsColor: .systemGreen)
     static let purple = Color(nsColor: .systemPurple)
+    // Status colours are darker in light mode so text stays readable on white.
+    static let info = adaptive(light: (0.0, 0.45, 0.58), dark: (0.35, 0.82, 0.95))
+    static let done = adaptive(light: (0.10, 0.50, 0.22), dark: (0.40, 0.90, 0.60))
+    static let warning = adaptive(light: (0.72, 0.38, 0.0), dark: (1.0, 0.72, 0.35))
+    static let danger = adaptive(light: (0.78, 0.12, 0.18), dark: (1.0, 0.47, 0.52))
 
     static let textPrimary = Color.primary
     static let textSecondary = Color.secondary
 
     static let accent = LinearGradient(colors: [highlight, highlight], startPoint: .top, endPoint: .bottom)
-    static let cool = gradient(Color(nsColor: .systemTeal), Color(nsColor: .systemBlue))
+    static let cool = gradient(Color(red: 0.0, green: 0.52, blue: 0.68), Color(red: 0.0, green: 0.40, blue: 0.80))
 
     /// A gray that is `light` (0–1) in light mode and `dark` in dark mode.
     private static func adaptive(light: CGFloat, dark: CGFloat) -> Color {
+        adaptive(light: (light, light, light), dark: (dark, dark, dark))
+    }
+
+    /// An RGB colour with one value for light mode and one for dark mode.
+    private static func adaptive(light: (CGFloat, CGFloat, CGFloat), dark: (CGFloat, CGFloat, CGFloat)) -> Color {
         Color(nsColor: NSColor(name: nil) { appearance in
-            let isDark = appearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua
-            return NSColor(white: isDark ? dark : light, alpha: 1)
+            let rgb = appearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua ? dark : light
+            return NSColor(srgbRed: rgb.0, green: rgb.1, blue: rgb.2, alpha: 1)
         })
     }
 

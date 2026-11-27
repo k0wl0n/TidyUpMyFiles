@@ -48,7 +48,7 @@ struct RuleEditor: View {
             Toggle("Allow replacing existing files (on conflict: overwrite)", isOn: $rule.allowOverwrite)
             if rule.allowOverwrite {
                 Text("Replaced files are moved to the Trash and come back if you undo.")
-                    .font(.caption).foregroundStyle(.orange)
+                    .font(.caption).foregroundStyle(Theme.warning)
             }
             HStack(spacing: 14) {
                 Text("Watching \(folder.path)").font(.caption).foregroundStyle(.secondary)

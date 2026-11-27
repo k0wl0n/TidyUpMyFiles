@@ -290,15 +290,15 @@ struct RuleRow: View {
         HStack {
             Image(systemName: rule.enabled ? "circle.fill" : "circle")
                 .font(.system(size: 7))
-                .foregroundStyle(rule.enabled ? .green : .secondary)
+                .foregroundStyle(rule.enabled ? Theme.done : .secondary)
                 .accessibilityHidden(true)
             Text(rule.name).lineLimit(1).foregroundStyle(Theme.textPrimary)
             Spacer()
             Text(rule.mode == .live ? "Live" : "Preview")
                 .font(.caption2.bold())
-                .foregroundStyle(rule.mode == .live ? Color(red: 0.4, green: 1, blue: 0.7) : Color(red: 1, green: 0.75, blue: 0.4))
+                .foregroundStyle(rule.mode == .live ? Theme.done : Theme.warning)
                 .padding(.horizontal, 7).padding(.vertical, 2)
-                .background(rule.mode == .live ? Color.green.opacity(0.22) : Color.orange.opacity(0.22), in: Capsule())
+                .background(rule.mode == .live ? Theme.done.opacity(0.15) : Theme.warning.opacity(0.15), in: Capsule())
         }
         .accessibilityElement(children: .combine)
         .accessibilityLabel("\(rule.name), \(rule.enabled ? "on" : "off"), \(rule.mode == .live ? "live" : "preview only")")
@@ -365,7 +365,7 @@ struct TemplateCard: View {
         }
         .padding(14)
         .frame(maxWidth: .infinity, minHeight: 150, alignment: .topLeading)
-        .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(Color.primary.opacity(0.06)))
+        .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(Theme.cardFill))
         .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(addedHere ? Theme.done.opacity(0.45) : Theme.cardStroke))
     }
 }

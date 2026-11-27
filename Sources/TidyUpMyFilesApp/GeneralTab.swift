@@ -29,7 +29,7 @@ struct GeneralTab: View {
                     .help("Rules can run a Shortcut from the Shortcuts app with the file. Off unless you want it.")
                 Label("Scripts run with your permissions and can't be undone. Leave this off unless you wrote the script.",
                       systemImage: "exclamationmark.triangle.fill")
-                    .font(.caption).foregroundStyle(.orange)
+                    .font(.caption).foregroundStyle(Theme.warning)
             }
             Section("Notifications") {
                 Toggle("Notify me when files are tidied in the background", isOn: settingBinding(\.notifyAfterBackgroundRuns))

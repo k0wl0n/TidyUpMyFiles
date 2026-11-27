@@ -254,7 +254,7 @@ struct PreviewTab: View {
                         Image(systemName: group.icon).foregroundStyle(Theme.info).accessibilityHidden(true)
                         Text(group.title).font(.system(.headline, design: .rounded)).foregroundStyle(Theme.textPrimary)
                             .lineLimit(1).truncationMode(.middle)
-                        if let note = group.note { Badge(text: note, color: Color(red: 0.4, green: 0.95, blue: 0.65)) }
+                        if let note = group.note { Badge(text: note, color: Theme.done) }
                         Spacer()
                         Text("\(group.items.count) item(s) · \(ByteCountFormatter.string(fromByteCount: bytes, countStyle: .file))")
                             .font(.caption).foregroundStyle(Theme.textSecondary)
@@ -275,8 +275,7 @@ struct PreviewTab: View {
         .padding(.horizontal, 10).padding(.vertical, 8)
         .background(
             RoundedRectangle(cornerRadius: 12, style: .continuous)
-                .fill(Theme.background)
-                .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).fill(Color.primary.opacity(0.06)))
+                .fill(Theme.rowFill)
         )
         .animation(.easeInOut(duration: 0.15), value: folded)
     }
@@ -422,7 +421,7 @@ private struct PreviewRow: View {
         }
         .padding(12)
         .background(RoundedRectangle(cornerRadius: 14, style: .continuous)
-            .fill(isFocused ? Color.primary.opacity(0.13) : Color.primary.opacity(0.05)))
+            .fill(isFocused ? Theme.rowFillActive : Theme.rowFill))
         .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous)
             .stroke(isFocused ? Theme.highlight.opacity(0.7) : Color.clear, lineWidth: 1.5))
         .contentShape(Rectangle())
@@ -445,7 +444,7 @@ private struct JourneyLine: View {
                           gradient: PreviewText.verbGradient(detail.mainStep?.verb ?? "move"))
                 if detail.goesToTrash {
                     Label("Trash — can be restored with Undo", systemImage: "trash")
-                        .font(.callout).foregroundStyle(Color(red: 1, green: 0.6, blue: 0.65))
+                        .font(.callout).foregroundStyle(Theme.danger)
                 } else if let final = detail.finalLocation {
                     PathText(folder: final.deletingLastPathComponent(),
                              name: detail.nameChanges || detail.mainStep?.verb == "archive" ? final.lastPathComponent : nil,
@@ -548,7 +547,7 @@ private struct PreviewDetailPanel: View {
                 }
                 if detail.goesToTrash {
                     PanelNote(icon: "trash.fill", text: "Goes to the Trash. Nothing is deleted for good; you can undo it.",
-                              color: Color(red: 1, green: 0.5, blue: 0.55))
+                              color: Theme.danger)
                 } else if let final = detail.finalLocation {
                     PathBox(title: "To", url: final, highlightName: detail.nameChanges, tint: Theme.info)
                 }
@@ -663,9 +662,9 @@ private struct Note {
 }
 
 private enum PreviewText {
-    static let orange = Color(red: 1, green: 0.72, blue: 0.35)
-    static let red = Color(red: 1, green: 0.45, blue: 0.5)
-    static let green = Color(red: 0.4, green: 0.95, blue: 0.65)
+    static let orange = Theme.warning
+    static let red = Theme.danger
+    static let green = Theme.done
 
     static func verbTitle(_ verb: String) -> String {
         switch verb {
@@ -789,7 +788,7 @@ private struct SummaryChip: View {
             }
             .padding(.horizontal, 10).padding(.vertical, 7)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(RoundedRectangle(cornerRadius: 12, style: .continuous).fill(Color.primary.opacity(active ? 0.16 : 0.06)))
+            .background(RoundedRectangle(cornerRadius: 12, style: .continuous).fill(active ? Theme.rowFillActive : Theme.cardFill))
             .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(active ? Theme.highlight.opacity(0.7) : Theme.cardStroke))
         }
         .buttonStyle(.plain)

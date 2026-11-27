@@ -60,7 +60,7 @@ enum AppSection: String, CaseIterable, Identifiable {
         case .rules: return Theme.cool
         case .preview: return Theme.gradient(Color(red: 1, green: 0.72, blue: 0.2), Color(red: 1, green: 0.45, blue: 0.25))
         case .activity: return Theme.gradient(Color(red: 0.25, green: 0.9, blue: 0.6), Color(red: 0.1, green: 0.65, blue: 0.7))
-        case .smartTrash: return Theme.gradient(Color(red: 1, green: 0.4, blue: 0.45), Color(red: 0.85, green: 0.2, blue: 0.5))
+        case .smartTrash: return Theme.gradient(Theme.danger, Color(red: 0.85, green: 0.2, blue: 0.5))
         case .ai: return Theme.gradient(Theme.purple, Color(red: 0.3, green: 0.35, blue: 1))
         case .general: return Theme.gradient(Color(white: 0.6), Color(red: 0.4, green: 0.45, blue: 0.6))
         }

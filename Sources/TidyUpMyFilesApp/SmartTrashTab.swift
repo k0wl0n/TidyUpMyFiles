@@ -38,7 +38,7 @@ struct SmartTrashTab: View {
                 }
                 if settings.wrappedValue.enabled && !settings.wrappedValue.confirmed {
                     Label("Automatic emptying waits until you confirm the summary below once.", systemImage: "hand.raised.fill")
-                        .foregroundStyle(.orange)
+                        .foregroundStyle(Theme.warning)
                 }
             }
             Section("What would be removed now") {

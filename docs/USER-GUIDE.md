@@ -98,18 +98,18 @@ The pictures come from a demo setup with sample files, so they show made-up name
 ![Every step — plus a log file](../.github/assets/07-activity-steps.jpg)
 
 ```
-2026-11-25 08:45:21  DONE     MOVE         ~/Desktop/Screenshot 2026-11-20 at 09.15.02.png → ~/Pictures/Screenshots/2026-11/Screenshot 2026-11-20 at 09.15.02.png  · Screenshots · run 1 (cli)
-2026-11-25 08:45:21  DONE     MOVE         ~/Desktop/Screenshot 2026-11-21 at 14.02.44.png → ~/Pictures/Screenshots/2026-11/Screenshot 2026-11-21 at 14.02.44.png  · Screenshots · run 1 (cli)
-2026-11-25 08:45:21  DONE     MOVE         ~/Desktop/Screenshot 2026-11-23 at 18.40.10.png → ~/Pictures/Screenshots/2026-11/Screenshot 2026-11-23 at 18.40.10.png  · Screenshots · run 1 (cli)
-2026-11-25 08:45:22  DONE     MOVE         ~/Downloads/api-response.json → ~/Documents/Code & Data/api-response.json  · Code & data files · run 2 (cli)
-2026-11-25 08:45:22  DONE     MOVE         ~/Downloads/Contract signed.pdf → ~/Documents/PDF/Contract signed.pdf  · PDF files · run 2 (cli)
-2026-11-25 08:45:22  DONE     MOVE         ~/Downloads/Holiday photo.jpg → ~/Pictures/Downloads/Holiday photo.jpg  · Images · run 2 (cli)
-2026-11-25 08:45:22  DONE     TRASH        ~/Downloads/invoice-0921 (1).pdf → ~/.Trash/invoice-0921 (1).pdf  · Duplicate downloads · run 2 (cli)
-2026-11-25 08:45:22  DONE     MOVE         ~/Downloads/invoice-0921.pdf → ~/Documents/PDF/invoice-0921.pdf  · PDF files · run 2 (cli)
-2026-11-25 08:45:22  DONE     MOVE         ~/Downloads/Meeting notes.docx → ~/Documents/Docs/Meeting notes.docx  · Word & text documents · run 2 (cli)
-2026-11-25 08:45:22  DONE     MOVE         ~/Downloads/Product demo.mov → ~/Movies/Downloads/Product demo.mov  · Videos · run 2 (cli)
-2026-11-25 08:45:22  DONE     MOVE         ~/Downloads/Q3 budget.xlsx → ~/Documents/Spreadsheets/Q3 budget.xlsx  · Spreadsheets · run 2 (cli)
-2026-11-25 08:45:22  UNDONE   MOVE         ~/Downloads/Q3 budget.xlsx → ~/Documents/Spreadsheets/Q3 budget.xlsx  · Spreadsheets · run 2 (undo)
+2026-11-27 16:11:21  DONE     MOVE         ~/Desktop/Screenshot 2026-11-20 at 09.15.02.png → ~/Pictures/Screenshots/2026-11/Screenshot 2026-11-20 at 09.15.02.png  · Screenshots · run 1 (cli)
+2026-11-27 16:11:21  DONE     MOVE         ~/Desktop/Screenshot 2026-11-21 at 14.02.44.png → ~/Pictures/Screenshots/2026-11/Screenshot 2026-11-21 at 14.02.44.png  · Screenshots · run 1 (cli)
+2026-11-27 16:11:21  DONE     MOVE         ~/Desktop/Screenshot 2026-11-23 at 18.40.10.png → ~/Pictures/Screenshots/2026-11/Screenshot 2026-11-23 at 18.40.10.png  · Screenshots · run 1 (cli)
+2026-11-27 16:11:22  DONE     MOVE         ~/Downloads/api-response.json → ~/Documents/Code & Data/api-response.json  · Code & data files · run 2 (cli)
+2026-11-27 16:11:22  DONE     MOVE         ~/Downloads/Contract signed.pdf → ~/Documents/PDF/Contract signed.pdf  · PDF files · run 2 (cli)
+2026-11-27 16:11:22  DONE     MOVE         ~/Downloads/Holiday photo.jpg → ~/Pictures/Downloads/Holiday photo.jpg  · Images · run 2 (cli)
+2026-11-27 16:11:22  DONE     TRASH        ~/Downloads/invoice-0921 (1).pdf → ~/.Trash/invoice-0921 (1).pdf  · Duplicate downloads · run 2 (cli)
+2026-11-27 16:11:22  DONE     MOVE         ~/Downloads/invoice-0921.pdf → ~/Documents/PDF/invoice-0921.pdf  · PDF files · run 2 (cli)
+2026-11-27 16:11:22  DONE     MOVE         ~/Downloads/Meeting notes.docx → ~/Documents/Docs/Meeting notes.docx  · Word & text documents · run 2 (cli)
+2026-11-27 16:11:22  DONE     MOVE         ~/Downloads/Product demo.mov → ~/Movies/Downloads/Product demo.mov  · Videos · run 2 (cli)
+2026-11-27 16:11:22  DONE     MOVE         ~/Downloads/Q3 budget.xlsx → ~/Documents/Spreadsheets/Q3 budget.xlsx  · Spreadsheets · run 2 (cli)
+2026-11-27 16:11:23  UNDONE   MOVE         ~/Downloads/Q3 budget.xlsx → ~/Documents/Spreadsheets/Q3 budget.xlsx  · Spreadsheets · run 2 (undo)
 ```
 
 ## Smart Trash
